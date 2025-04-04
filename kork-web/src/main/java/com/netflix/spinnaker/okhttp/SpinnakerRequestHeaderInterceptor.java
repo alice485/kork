@@ -16,7 +16,6 @@
 
 package com.netflix.spinnaker.okhttp;
 
-import com.netflix.spinnaker.kork.common.Header;
 import com.netflix.spinnaker.security.AuthenticatedRequest;
 import java.io.IOException;
 import okhttp3.Interceptor;
@@ -55,8 +54,7 @@ public class SpinnakerRequestHeaderInterceptor implements Interceptor {
     AuthenticatedRequest.getAuthenticationHeaders()
         .forEach(
             (key, value) -> {
-              if (value.isPresent()
-                  && (!skipAccountsHeader || !Header.ACCOUNTS.getHeader().equals(key))) {
+              if (value.isPresent() && !skipAccountsHeader) {
                 builder.addHeader(key, value.get());
               }
             });

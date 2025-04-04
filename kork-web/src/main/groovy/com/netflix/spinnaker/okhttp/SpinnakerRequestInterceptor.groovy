@@ -16,7 +16,6 @@
 
 package com.netflix.spinnaker.okhttp
 
-import com.netflix.spinnaker.kork.common.Header
 import com.netflix.spinnaker.security.AuthenticatedRequest
 import retrofit.RequestInterceptor
 
@@ -46,7 +45,7 @@ class SpinnakerRequestInterceptor implements RequestInterceptor {
     }
 
     AuthenticatedRequest.authenticationHeaders.each { String key, Optional<String> value ->
-      if (value.present && (!skipAccountsHeader || !Header.ACCOUNTS.getHeader().equals(key))) {
+      if (value.present && !skipAccountsHeader) {
         request.addHeader(key, value.get())
       }
     }
